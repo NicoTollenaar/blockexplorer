@@ -1,23 +1,35 @@
 function BlockAndTransactionInfo({ formattedBlockAndAddressData }) {
   return (
-    <>
-      <div>
-        <ul className="m-5">
-          {formattedBlockAndAddressData?.map((e, index) => {
-            return (
-              <li key={index} className="ml-5 first-letter:flex justify-start">
-                <div className="ml-5 w-40 inline-block">
-                  <b>{e.key}:</b>
-                </div>
-                <div className="inline-block">{JSON.stringify(e.value)}</div>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </>
+      // <div className="mx-8 flex justify-start">
+          <table className="w-3/5 my-[40px] min-w-max table-auto">
+          <tbody className="text-gray-600 text-sm font-light">
+            {formattedBlockAndAddressData?.map((e, index) => {
+              return (
+                <tr
+                  key={index}
+                  className="mx-8 border-b border-gray-200 hover:bg-gray-100"
+                >
+                  <td className="py-3 px-6 text-left whitespace-nowrap">
+                    <div className="flex items-center">
+                      <p className="hover:text-red-600 font-medium text-gray-700">
+                        {e.key}
+                      </p>
+                    </div>
+                  </td>
+                  <td className="py-3 px-6 text-left whitespace-nowrap">
+                    <div className="flex items-center">
+                      <p className="hover:text-red-600 font-medium text-blue-600">
+                        {JSON.stringify(e.value)}
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      // </div>
   );
 }
-
 
 export default BlockAndTransactionInfo;

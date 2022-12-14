@@ -11,13 +11,6 @@ function TransactionTable({
   handleSearch,
   balance,
 }) {
-  // useEffect(() => {
-  //   console.log(
-  //     "in useEffect handlesearch, logging selectedType:",
-  //     selectedType
-  //   );
-  //   handleSearch();
-  // }, [selectedType, searchInput]);
 
   function handleClick(event, parameters) {
     console.log("in handleclick, logging paramters:", parameters);
@@ -37,8 +30,8 @@ function TransactionTable({
     <>
       <h5 className="m-5 font-bold text-gray-700">ETH Balance: {balance}</h5>
       <h5 className="m-5 font-bold text-gray-700">
-        Transactions in the last 10 blocks: {addressData?.length || 0}
-      </h5>
+        Transactions in the last 10 blocks: <span className="text-red-600">{addressData?.length || 0}
+</span>       </h5>
 
       <div className="m-5 overflow-x-auto">
         <div className="my-5 w-full lg:w-5/6">
