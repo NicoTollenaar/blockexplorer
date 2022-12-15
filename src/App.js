@@ -1,9 +1,7 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Alchemy, Network, Utils } from "alchemy-sdk";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
-import BlockAndTransactionInfo from "./components/BlockAndTransactionInfo";
-import TransactionTable from "./components/TransactionTable";
 import SearchBar from "./components/SearchBar.js";
 import BlockPage from "./pages/BlockPage";
 import TransactionPage from "./pages/TransactionPage";
@@ -151,26 +149,17 @@ function App() {
     return;
   }
   function changeRetrieve(value) {
-    console.log("in changeRetrieve, logging value:", value);
     setRetrieve(value);
     return;
   }
 
   useEffect(() => {
-    console.log(
-      "in useEffect handlesearch, logging selectedtype and searchInput:",
-      selectedType,
-      searchInput
-    );
     if (retrieve) retrieveInfo();
     async function retrieveInfo() {
       await handleSearch();
       setRetrieve(false);
     }
   }, [retrieve]);
-
-  console.log("In App.js logging selectedType:", selectedType);
-  console.log("In App.js logging searchInput:", searchInput);
 
   return (
     <>
@@ -184,24 +173,54 @@ function App() {
         changeSearchInput={changeSearchInput}
       />
       <Routes>
-        <Route path="/block" element={<BlockPage />} />
-        <Route path="/transaction" element={<TransactionPage />} />
-        <Route path="/address" element={<AddressPage />} />
+        <Route
+          path="/block"
+          element={
+            <BlockPage
+              formattedBlockAndAddressData={formattedBlockAndAddressData}
+            />
+          }
+        />
+        <Route
+          path="/transaction"
+          element={
+            <TransactionPage
+              formattedBlockAndAddressData={formattedBlockAndAddressData}
+            />
+          }
+        />
+        <Route
+          path="/address"
+          element={
+            <AddressPage
+              addressData={addressData}
+              selectedType={selectedType}
+              changeSelectedType={changeSelectedType}
+              searchInput={searchInput}
+              changeSearchInput={changeSearchInput}
+              handleSearch={handleSearch}
+              balance={balance}
+              retrieve={retrieve}
+              changeRetrieve={changeRetrieve}
+            />
+          }
+        />
       </Routes>
 
       {selectedType === "Block" && (
-
         <BlockPage
           formattedBlockAndAddressData={formattedBlockAndAddressData}
         />
       )}
+      {/* <Navigate to="/block" /> */}
 
       {selectedType === "Transaction" && (
         <TransactionPage
           formattedBlockAndAddressData={formattedBlockAndAddressData}
         />
       )}
-      
+      {/* <Navigate to="/transaction" /> */}
+
       {selectedType === "Address" && (
         <AddressPage
           addressData={addressData}
